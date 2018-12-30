@@ -15,15 +15,33 @@ using Ninjato.Services.Activity.Services;
 
 namespace Ninjato.Services.Activity
 {
-    public class Startup {
-        public Startup (IConfiguration configuration) {
+    /// <summary>
+    /// Startup.
+    /// </summary>
+    public class Startup 
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Ninjato.Services.Activity.Startup"/> class.
+        /// </summary>
+        /// <param name="configuration">Configuration.</param>
+        public Startup (IConfiguration configuration) 
+        {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Gets the configuration.
+        /// </summary>
+        /// <value>The configuration.</value>
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container
-        public IServiceProvider ConfigureServices (IServiceCollection services) {
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container
+        /// </summary>
+        /// <returns>The services.</returns>
+        /// <param name="services">Services.</param>
+        public IServiceProvider ConfigureServices (IServiceCollection services) 
+        {
             services.AddMvc ().SetCompatibilityVersion (CompatibilityVersion.Version_2_2);
             services.AddLogging (loggingBuilder => 
             { 
@@ -44,15 +62,21 @@ namespace Ninjato.Services.Activity
             return services.BuildServiceProvider ();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure (IApplicationBuilder app, IHostingEnvironment env) {
-            if (env.IsDevelopment ()) {
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">App.</param>
+        /// <param name="env">Env.</param>
+        public void Configure (IApplicationBuilder app, IHostingEnvironment env) 
+        {
+            if (env.IsDevelopment ()) 
+            {
                 app.UseDeveloperExceptionPage ();
             } else {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts ();
             }
-            
+
             app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync(); // Invokes the database initializer
             app.UseHttpsRedirection ();
             app.UseMvc ();

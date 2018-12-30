@@ -4,6 +4,9 @@ using Ninjato.Services.Activity.Domain.Models;
 
 namespace Ninjato.Services.Activity.Domain.Repositories
 {
+    /// <summary>
+    /// Category repository.
+    /// </summary>
     public interface ICategoryRepository
     {
         /// <summary>

@@ -2,8 +2,11 @@ using RawRabbit.Configuration;
 
 namespace Ninjato.Common.RabbitMq
 {
-  public class RabbitmqOptions : RawRabbitConfiguration
-  {
+    /// <summary>
+    /// Rabbitmq options.
+    /// </summary>
+    public class RabbitmqOptions : RawRabbitConfiguration
+    {
 
-  }
+    }
 }

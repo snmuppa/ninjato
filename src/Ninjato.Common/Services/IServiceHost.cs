@@ -1,7 +1,10 @@
 namespace Ninjato.Common.Services
 {
-  public interface IServiceHost
-  {
-    void Run();
-  }
+    /// <summary>
+    /// Service host.
+    /// </summary>
+    public interface IServiceHost
+    {
+        void Run();
+    }
 }

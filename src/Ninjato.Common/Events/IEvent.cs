@@ -1,7 +1,10 @@
 namespace Ninjato.Common.Events
 {
-  public interface IEvent
-  {
-      
-  }
+    /// <summary>
+    /// Marker Interface
+    /// </summary>
+    public interface IEvent
+    {
+
+    }
 }

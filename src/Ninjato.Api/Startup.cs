@@ -1,29 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Ninjato.Api.Handlers;
 using Ninjato.Common.Events;
 using Ninjato.Common.RabbitMq;
 
-namespace Ninjato.Api {
-    public class Startup {
-        public Startup (IConfiguration configuration) {
+namespace Ninjato.Api
+{
+    /// <summary>
+    /// Startup.
+    /// </summary>
+    public class Startup 
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Ninjato.Api.Startup"/> class.
+        /// </summary>
+        /// <param name="configuration">Configuration.</param>
+        public Startup (IConfiguration configuration) 
+        {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Gets the configuration.
+        /// </summary>
+        /// <value>The configuration.</value>
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices (IServiceCollection services) {
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container
+        /// </summary>
+        /// <returns>The services.</returns>
+        /// <param name="services">Services.</param>
+        public IServiceProvider ConfigureServices (IServiceCollection services) 
+        {
             services.AddMvc ().SetCompatibilityVersion (CompatibilityVersion.Version_2_2);
             services.AddLogging (loggingBuilder => {
                 loggingBuilder.AddConfiguration (Configuration.GetSection ("Logging"));
@@ -38,8 +52,13 @@ namespace Ninjato.Api {
             return services.BuildServiceProvider ();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure (IApplicationBuilder app, IHostingEnvironment env) {
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">App.</param>
+        /// <param name="env">Env.</param>
+        public void Configure (IApplicationBuilder app, IHostingEnvironment env) 
+        {
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
             } else {

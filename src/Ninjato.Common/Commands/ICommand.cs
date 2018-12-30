@@ -1,8 +1,10 @@
 namespace Ninjato.Common.Commands 
 {
-  // Marker Interface
-  public interface ICommand
-  {
+    /// <summary>
+    ///  Marker Interface
+    /// </summary>
+    public interface ICommand
+    {
       
-  }
+    }
 }

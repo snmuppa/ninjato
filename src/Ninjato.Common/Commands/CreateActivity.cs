@@ -2,18 +2,45 @@ using System;
 
 namespace Ninjato.Common.Commands
 {
-  public class CreateActivity : IAuthenticationCommand
-  {
-    public Guid UserId { get; set; }
+    /// <summary>
+    /// Create activity.
+    /// </summary>
+    public class CreateActivity : IAuthenticationCommand
+    {
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>The user identifier.</value>
+        public Guid UserId { get; set; }
 
-    public Guid Id { get; set; }
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        public Guid Id { get; set; }
 
-    public string Category { get; set; }
+        /// <summary>
+        /// Gets or sets the category.
+        /// </summary>
+        /// <value>The category.</value>
+        public string Category { get; set; }
 
-    public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>The name.</value>
+        public string Name { get; set; }
 
-    public string Description { get; set; }
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>The description.</value>
+        public string Description { get; set; }
 
-    public DateTime CreatedAt { get; set; }
-  }
+        /// <summary>
+        /// Gets or sets the created at.
+        /// </summary>
+        /// <value>The created at.</value>
+        public DateTime CreatedAt { get; set; }
+    }
 }

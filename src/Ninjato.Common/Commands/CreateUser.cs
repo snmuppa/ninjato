@@ -1,11 +1,26 @@
 namespace Ninjato.Common.Commands
 {
-  public class CreateUser : ICommand 
-  {
-    public string Email { get; set; }
+    /// <summary>
+    /// Create user.
+    /// </summary>
+    public class CreateUser : ICommand 
+    {
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>The email.</value>
+        public string Email { get; set; }
 
-    public string Password { get; set; }
+        /// <summary>
+        /// Gets or sets the password.
+        /// </summary>
+        /// <value>The password.</value>
+        public string Password { get; set; }
 
-    public string Name { get; set; }
-  }
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>The name.</value>
+        public string Name { get; set; }
+    }
 }

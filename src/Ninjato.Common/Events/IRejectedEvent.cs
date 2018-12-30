@@ -1,15 +1,20 @@
 namespace Ninjato.Common.Events
 {
-  public  interface IRejectedEvent : IEvent
-  {
-      ///
-      // Reason for why the event is rejected
-      ///
-      string Reason { get; }
+    /// <summary>
+    /// Rejected event.
+    /// </summary>
+    public  interface IRejectedEvent : IEvent
+    {
+        /// <summary>
+        /// Gets the reason for why the event is rejected
+        /// </summary>
+        /// <value>The reason.</value>
+        string Reason { get; }
 
-      ///
-      // Code for why the event is rejected 
-      /// 
-      string Code { get; }
-  }
+        /// <summary>
+        /// Gets the code for why the event is rejected .
+        /// </summary>
+        /// <value>The code.</value>
+        string Code { get; }
+    }
 }

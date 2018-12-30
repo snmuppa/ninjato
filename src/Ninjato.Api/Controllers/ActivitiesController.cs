@@ -4,22 +4,38 @@ using Microsoft.AspNetCore.Mvc;
 using Ninjato.Common.Commands;
 using RawRabbit;
 
-namespace Ninjato.Api.Controllers {
-  [Route ("[controller]")] // route pattern matching on 'controller' name
-  public class ActivitiesController : Controller {
-    private readonly IBusClient _busClient;
+namespace Ninjato.Api.Controllers
+{
+    /// <summary>
+    /// Activities controller.
+    /// </summary>
+    [Route ("[controller]")] // route pattern matching on 'controller' name
+    public class ActivitiesController : Controller 
+    {
+        private readonly IBusClient _busClient;
 
-    public ActivitiesController(IBusClient busClient) {
-      _busClient = busClient;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Ninjato.Api.Controllers.ActivitiesController"/> class.
+        /// </summary>
+        /// <param name="busClient">Bus client.</param>
+        public ActivitiesController(IBusClient busClient) 
+        {
+            _busClient = busClient;
+        }
+
+        /// <summary>
+        /// Post the specified command.
+        /// </summary>
+        /// <returns>The post.</returns>
+        /// <param name="command">Command.</param>
+        [HttpPost ("")]
+        public async Task<IActionResult> Post ([FromBody] CreateActivity command) 
+        {
+            command.Id = Guid.NewGuid ();
+            command.CreatedAt = DateTime.UtcNow;
+            await _busClient.PublishAsync (command);
+
+            return Accepted ($"activities/{command.Id}");
+        }
     }
-
-    [HttpPost ("")]
-    public async Task<IActionResult> Post ([FromBody] CreateActivity command) {
-      command.Id = Guid.NewGuid ();
-      command.CreatedAt = DateTime.UtcNow;
-      await _busClient.PublishAsync (command);
-
-      return Accepted ($"activities/{command.Id}");
-    }
-  }
 }
