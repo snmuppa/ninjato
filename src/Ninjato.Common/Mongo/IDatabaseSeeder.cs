@@ -2,8 +2,8 @@ using System.Threading.Tasks;
 
 namespace Ninjato.Common.Mongo
 {
-  public interface IDatabaseInitializer
+  public interface IDatabaseSeeder
   {
-    Task InitializeAsync();
+    Task SeedAsync();
   }
 }

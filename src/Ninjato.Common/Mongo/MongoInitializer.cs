@@ -12,42 +12,39 @@ namespace Ninjato.Common.Mongo {
 
     private readonly bool _seed;
 
+    private readonly IDatabaseSeeder _databaseSeeder;
+
     private readonly IMongoDatabase _database;
 
-    public MongoInitializer(IMongoDatabase database, IOptions<MongoOptions> options)
-    {
+    public MongoInitializer (IMongoDatabase database, IDatabaseSeeder databaseSeeder, IOptions<MongoOptions> options) {
       _seed = options.Value.Seed;
+      _databaseSeeder = databaseSeeder;
       _database = database;
     }
 
-    public async Task InitializeAsync() 
-    {
-      if(_initialized)
-      {
+    public async Task InitializeAsync () {
+      if (_initialized) {
         return;
       }
 
-      RegisterConventions();
+      RegisterConventions ();
       _initialized = true;
 
-      if(!_seed)
-      {
+      if (!_seed) {
         return;
       }
+      await _databaseSeeder.SeedAsync(); // executes the seeder
     }
 
-    private void RegisterConventions()
-    {
-      ConventionRegistry.Register("ActionConventions", new MongoConventions(), x => true);
+    private void RegisterConventions () {
+      ConventionRegistry.Register ("ActionConventions", new MongoConventions (), x => true);
     }
 
-    private class MongoConventions : IConventionPack
-    {
-      public IEnumerable<IConvention> Conventions => new List<IConvention>
-      {
-        new IgnoreExtraElementsConvention(true), // if there are extra elements in the class thata are not serialized etc, don't throw exceptions
-        new EnumRepresentationConvention(BsonType.String), // converts the enums to strings
-        new CamelCaseElementNameConvention() // stpre all the keys as camelCase
+    private class MongoConventions : IConventionPack {
+      public IEnumerable<IConvention> Conventions => new List<IConvention> {
+        new IgnoreExtraElementsConvention (true), // if there are extra elements in the class thata are not serialized etc, don't throw exceptions
+        new EnumRepresentationConvention (BsonType.String), // converts the enums to strings
+        new CamelCaseElementNameConvention () // stpre all the keys as camelCase
       };
     }
   }

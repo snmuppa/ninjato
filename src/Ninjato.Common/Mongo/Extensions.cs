@@ -26,6 +26,7 @@ namespace Ninjato.Common.Mongo
       });
 
       services.AddScoped<IDatabaseInitializer, MongoInitializer>();
+      services.AddScoped<IDatabaseSeeder, MongoSeeder>();
     }
   }
 }

@@ -4,21 +4,26 @@ using Ninjato.Services.Activity.Domain.Models;
 
 namespace Ninjato.Services.Activity.Domain.Repositories
 {
-  public interface ICategoryRepository
-  {
-    ///
-    // Fetches the category for a given name
-    ///
-    Task<Category> GetAsync(string name);
+    public interface ICategoryRepository
+    {
+        /// <summary>
+        /// Fetches the category for a given name
+        /// </summary>
+        /// <returns>The async.</returns>
+        /// <param name="name">Name.</param>
+        Task<Category> GetAsync(string name);
 
-    ///
-    // fetches all the categories that are available
-    ///
-    Task<IEnumerable<Category>> BrowseAsync();
-    
-    ///
-    // Adds a category
-    ///
-    Task AddAsyncCategory(Category category);
-  }
+        /// <summary>
+        /// Fetches all the categories that are available
+        /// </summary>
+        /// <returns>The async.</returns>
+        Task<IEnumerable<Category>> BrowseAsync();
+
+        /// <summary>
+        /// Adds a category
+        /// </summary>
+        /// <returns>The async.</returns>
+        /// <param name="category">Category.</param>
+        Task AddAsync(Category category);
+    }
 }
