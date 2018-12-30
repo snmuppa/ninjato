@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Ninjato.Common.Commands;
+using Ninjato.Common.Mongo;
 using Ninjato.Common.RabbitMq;
 using Ninjato.Services.Activity.Handlers;
 
@@ -25,7 +26,9 @@ namespace Ninjato.Services.Activity {
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices (IServiceCollection services) {
             services.AddMvc ().SetCompatibilityVersion (CompatibilityVersion.Version_2_2);
-            services.AddRabbitMq (Configuration);
+            services.AddLogging();
+            services.AddMongoDB(Configuration);
+            services.AddRabbitMq(Configuration);
             // let's add a handler to the commands, as the services handle the commands
             services.AddScoped<ICommandHandler<CreateActivity>, CreateActivityHandler> ();
 

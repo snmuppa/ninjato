@@ -25,7 +25,8 @@ namespace Ninjato.Api {
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices (IServiceCollection services) {
             services.AddMvc ().SetCompatibilityVersion (CompatibilityVersion.Version_2_2);
-            services.AddRabbitMq (Configuration);
+            services.AddLogging();
+            services.AddRabbitMq(Configuration);
             // let's add a handler to the events, as the API only handles the events and the services handle the commands
             services.AddScoped<IEventHandler<ActivityCreated>, ActivityCreatedHandler> ();
 
