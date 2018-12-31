@@ -7,16 +7,40 @@ namespace Ninjato.Common.Events
     /// </summary>
     public class ActivityCreated : IAuthenticatedEvent 
     {
+        /// <summary>
+        /// Gets the user identifier.
+        /// </summary>
+        /// <value>The user identifier.</value>
         public Guid UserId { get; }
 
+        /// <summary>
+        /// Gets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
         public Guid Id { get; }
 
+        /// <summary>
+        /// Gets the category.
+        /// </summary>
+        /// <value>The category.</value>
         public string Category { get; }
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public string Name { get; }
 
+        /// <summary>
+        /// Gets the description.
+        /// </summary>
+        /// <value>The description.</value>
         public string Description { get; }
 
+        /// <summary>
+        /// Gets the created at.
+        /// </summary>
+        /// <value>The created at.</value>
         public DateTime CreatedAt { get; }
 
         protected ActivityCreated () 
