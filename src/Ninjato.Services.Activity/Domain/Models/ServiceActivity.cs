@@ -1,4 +1,5 @@
 using System;
+using Ninjato.Common.Exceptions;
 
 namespace Ninjato.Services.Activity.Domain.Models 
 {
@@ -63,6 +64,11 @@ namespace Ninjato.Services.Activity.Domain.Models
         public ServiceActivity (Guid id, Category category, Guid userId,
         string name, string description, DateTime createdAt) 
         {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new NinjatoException("empty_service_activity_name", $"Activity name cannot be empty.");
+            }
+
             Id = id;
             Category = category;
             UserId = userId;

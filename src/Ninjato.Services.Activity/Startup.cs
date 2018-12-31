@@ -57,6 +57,7 @@ namespace Ninjato.Services.Activity
             services.AddScoped<IServiceActivityRepository, ServiceActivityRepository> ();
             services.AddScoped<ICategoryRepository, CategoryRepository> ();
             services.AddScoped<IDatabaseSeeder, ActivityMongoSeeder> ();
+            services.AddScoped<IActivityService, ActivityService> ();
 
             // Build the intermediate service provider then return it
             return services.BuildServiceProvider ();
