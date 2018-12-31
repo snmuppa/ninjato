@@ -23,6 +23,9 @@ namespace Ninjato.Common.Events
         /// <value>The code.</value>
         public string Code { get; }
 
+        /// <summary>
+        /// This ctor is used for serilaization purposes only.
+        /// </summary>
         protected CreateUserRejected()
         {
 
@@ -32,13 +35,13 @@ namespace Ninjato.Common.Events
         /// Initializes a new instance of the <see cref="T:Ninjato.Common.Events.CreateUserRejected"/> class.
         /// </summary>
         /// <param name="email">Email.</param>
-        /// <param name="reason">Reason.</param>
         /// <param name="code">Code.</param>
-        public CreateUserRejected(string email, string reason, string code)
+        /// <param name="reason">Reason.</param>
+        public CreateUserRejected(string email, string code, string reason)
         {
             Email = email;
-            Reason = reason;
             Code = code;
+            Reason = reason;
         }
     }
 }

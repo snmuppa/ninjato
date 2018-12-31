@@ -18,14 +18,14 @@ namespace Ninjato.Common.Mongo
         public static void AddMongoDB(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<MongoOptions>(configuration.GetSection("MongoDb"));
-            services.AddSingleton<MongoClient>(c => 
+            services.AddSingleton(c => 
             {
                 var options = c.GetService<IOptions<MongoOptions>>();
 
                 return new MongoClient(options.Value.ConnectionString);
             });
 
-            services.AddScoped<IMongoDatabase>(c => 
+            services.AddScoped(c => 
             {
                 var options = c.GetService<IOptions<MongoOptions>>();
                 var client = c.GetService<MongoClient>();

@@ -1,11 +1,25 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Ninjato.Common.Authentication;
+using Ninjato.Common.Commands;
+using Ninjato.Common.Mongo;
+using Ninjato.Common.RabbitMq;
+using Ninjato.Services.Identity.Domain.Repositories;
+using Ninjato.Services.Identity.Domain.Services;
+using Ninjato.Services.Identity.Handlers;
+using Ninjato.Services.Identity.Repositories;
+using Ninjato.Services.Identity.Services;
 
 namespace Ninjato.Services.Identity
 {
+    /// <summary>
+    /// Startup.
+    /// </summary>
     public class Startup 
     {
         public Startup (IConfiguration configuration) 
@@ -24,9 +38,29 @@ namespace Ninjato.Services.Identity
         /// </summary>
         /// <returns>The services.</returns>
         /// <param name="services">Services.</param>
-        public void ConfigureServices (IServiceCollection services) 
+        public IServiceProvider ConfigureServices (IServiceCollection services) 
         {
             services.AddMvc ().SetCompatibilityVersion (CompatibilityVersion.Version_2_2);
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.AddConfiguration(Configuration.GetSection("Logging"));
+                loggingBuilder.AddConsole();
+                loggingBuilder.AddDebug();
+            });
+
+            services.AddJwt(Configuration);
+            services.AddMongoDB(Configuration);
+            services.AddRabbitMq(Configuration);
+
+            // let's add a handler to the commands, as the services handle the commands
+            services.AddScoped<ICommandHandler<CreateUser>, CreateUserHandler>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEncrypter, Encrypter>();
+
+            // Build the intermediate service provider then return it
+            return services.BuildServiceProvider();
         }
 
         /// <summary>
@@ -44,6 +78,7 @@ namespace Ninjato.Services.Identity
                 app.UseHsts ();
             }
 
+            app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
             app.UseHttpsRedirection ();
             app.UseMvc ();
         }

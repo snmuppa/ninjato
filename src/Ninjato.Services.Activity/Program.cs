@@ -14,11 +14,11 @@ namespace Ninjato.Services.Activity
         /// <param name="args">The command-line arguments.</param>
         public static void Main (string[] args) 
         {
-            ServiceHost.Create<Startup> (args)
-                .UseRabbitMq ()
-                .SubscribeToCommand<CreateActivity> ()
-                .Build ()
-                .Run ();
+            ServiceHost.Create<Startup>(args)
+                .UseRabbitMq()
+                .SubscribeToCommand<CreateActivity>()
+                .Build()
+                .Run();
         }
     }
 }

@@ -42,25 +42,25 @@ namespace Ninjato.Services.Activity
         /// <param name="services">Services.</param>
         public IServiceProvider ConfigureServices (IServiceCollection services) 
         {
-            services.AddMvc ().SetCompatibilityVersion (CompatibilityVersion.Version_2_2);
-            services.AddLogging (loggingBuilder => 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddLogging(loggingBuilder => 
             { 
                 loggingBuilder.AddConfiguration(Configuration.GetSection("Logging"));
                 loggingBuilder.AddConsole();
                 loggingBuilder.AddDebug();
             });
-            services.AddMongoDB (Configuration);
-            services.AddRabbitMq (Configuration);
+            services.AddMongoDB(Configuration);
+            services.AddRabbitMq(Configuration);
             // let's add a handler to the commands, as the services handle the commands
-            services.AddScoped<ICommandHandler<CreateActivity>, CreateActivityHandler> ();
+            services.AddScoped<ICommandHandler<CreateActivity>, CreateActivityHandler>();
 
-            services.AddScoped<IServiceActivityRepository, ServiceActivityRepository> ();
-            services.AddScoped<ICategoryRepository, CategoryRepository> ();
-            services.AddScoped<IDatabaseSeeder, ActivityMongoSeeder> ();
-            services.AddScoped<IActivityService, ActivityService> ();
+            services.AddScoped<IServiceActivityRepository, ServiceActivityRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IDatabaseSeeder, ActivityMongoSeeder>();
+            services.AddScoped<IActivityService, ActivityService>();
 
             // Build the intermediate service provider then return it
-            return services.BuildServiceProvider ();
+            return services.BuildServiceProvider();
         }
 
         /// <summary>
@@ -70,17 +70,17 @@ namespace Ninjato.Services.Activity
         /// <param name="env">Env.</param>
         public void Configure (IApplicationBuilder app, IHostingEnvironment env) 
         {
-            if (env.IsDevelopment ()) 
+            if (env.IsDevelopment()) 
             {
-                app.UseDeveloperExceptionPage ();
+                app.UseDeveloperExceptionPage();
             } else {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts ();
+                app.UseHsts();
             }
 
             app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync(); // Invokes the database initializer
-            app.UseHttpsRedirection ();
-            app.UseMvc ();
+            app.UseHttpsRedirection();
+            app.UseMvc();
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Ninjato.Api.Handlers;
+using Ninjato.Common.Authentication;
 using Ninjato.Common.Events;
 using Ninjato.Common.RabbitMq;
 
@@ -38,18 +39,20 @@ namespace Ninjato.Api
         /// <param name="services">Services.</param>
         public IServiceProvider ConfigureServices (IServiceCollection services) 
         {
-            services.AddMvc ().SetCompatibilityVersion (CompatibilityVersion.Version_2_2);
-            services.AddLogging (loggingBuilder => {
-                loggingBuilder.AddConfiguration (Configuration.GetSection ("Logging"));
-                loggingBuilder.AddConsole ();
-                loggingBuilder.AddDebug ();
+            services.AddMvc().SetCompatibilityVersion (CompatibilityVersion.Version_2_2);
+            services.AddLogging(loggingBuilder => {
+                loggingBuilder.AddConfiguration(Configuration.GetSection ("Logging"));
+                loggingBuilder.AddConsole();
+                loggingBuilder.AddDebug();
             });
-            services.AddRabbitMq (Configuration);
+
+            services.AddJwt(Configuration);
+            services.AddRabbitMq(Configuration);
             // let's add a handler to the events, as the API only handles the events and the services handle the commands
-            services.AddScoped<IEventHandler<ActivityCreated>, ActivityCreatedHandler> ();
+            services.AddScoped<IEventHandler<ActivityCreated>, ActivityCreatedHandler>();
 
             // Build the intermediate service provider then return it
-            return services.BuildServiceProvider ();
+            return services.BuildServiceProvider();
         }
 
         /// <summary>
@@ -59,15 +62,15 @@ namespace Ninjato.Api
         /// <param name="env">Env.</param>
         public void Configure (IApplicationBuilder app, IHostingEnvironment env) 
         {
-            if (env.IsDevelopment ()) {
-                app.UseDeveloperExceptionPage ();
+            if (env.IsDevelopment()) {
+                app.UseDeveloperExceptionPage();
             } else {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts ();
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection ();
-            app.UseMvc ();
+            app.UseMvc();
         }
     }
 }

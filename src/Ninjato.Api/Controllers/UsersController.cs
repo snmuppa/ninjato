@@ -8,7 +8,7 @@ namespace Ninjato.Api.Controllers
     /// <summary>
     /// Users controller.
     /// </summary>
-    [Route("controller")]
+    [Route("[controller]")]
     public class UsersController : Controller 
     {
         private readonly IBusClient _busClient;
@@ -28,7 +28,7 @@ namespace Ninjato.Api.Controllers
         /// <returns>The post.</returns>
         /// <param name="command">Command.</param>
         [HttpPost ("register")]
-        public async Task<IActionResult> Post ([FromBody] CreateUser command) 
+        public async Task<IActionResult> Post([FromBody] CreateUser command) 
         {
             await _busClient.PublishAsync (command);
 

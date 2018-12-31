@@ -14,4 +14,13 @@
     <ProjectReference Include="..\Ninjato.Common\Ninjato.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\" />
+    <Folder Include="Handlers\" />
+    <Folder Include="Domain\Models\" />
+    <Folder Include="Domain\Repositories\" />
+    <Folder Include="Services\" />
+    <Folder Include="Domain\Services\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
 </Project>

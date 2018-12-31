@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Ninjato.Common.Commands;
+using Ninjato.Common.Services;
 
 namespace Ninjato.Services.Identity
 {
@@ -14,16 +14,11 @@ namespace Ninjato.Services.Identity
         /// <param name="args">The command-line arguments.</param>
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            ServiceHost.Create<Startup>(args)
+                .UseRabbitMq()
+                .SubscribeToCommand<CreateUser>()
+                .Build()
+                .Run();
         }
-
-        /// <summary>
-        /// Creates the web host builder.
-        /// </summary>
-        /// <returns>The web host builder.</returns>
-        /// <param name="args">Arguments.</param>
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
     }
 }
