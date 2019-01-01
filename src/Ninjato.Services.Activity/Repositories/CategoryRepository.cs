@@ -31,7 +31,7 @@ namespace Ninjato.Services.Activity.Repositories
         public async Task<Category> GetAsync (string name)
             => await Collection
                 .AsQueryable()
-                .FirstOrDefaultAsync(category => category != null && category.Name == name.ToLowerInvariant());
+                .FirstOrDefaultAsync(category => category.Name == name.ToLowerInvariant());
 
         /// <summary>
         /// Adds the async.

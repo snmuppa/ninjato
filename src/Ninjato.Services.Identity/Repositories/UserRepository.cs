@@ -39,7 +39,7 @@ namespace Ninjato.Services.Identity.Repositories
         public async Task<User> GetAsync(Guid id) 
             => await Collection
                .AsQueryable()
-               .FirstOrDefaultAsync(user => user!= null && user.Id == id);
+               .FirstOrDefaultAsync(user => user.Id == id);
 
         /// <summary>
         /// Gets the user by email.
@@ -49,7 +49,7 @@ namespace Ninjato.Services.Identity.Repositories
         public async Task<User> GetAsync(string email)
             => await Collection
                .AsQueryable()
-               .FirstOrDefaultAsync(user => user != null && user.Email == email);
+               .FirstOrDefaultAsync(user => user.Email == email);
 
         /// <summary>
         /// Gets the collection.

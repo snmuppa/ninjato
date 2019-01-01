@@ -79,7 +79,7 @@ namespace Ninjato.Services.Activity
             }
 
             app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync(); // Invokes the database initializer
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

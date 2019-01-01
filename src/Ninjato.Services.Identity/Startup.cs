@@ -79,7 +79,7 @@ namespace Ninjato.Services.Identity
             }
 
             app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
-            app.UseHttpsRedirection ();
+            // app.UseHttpsRedirection ();
             app.UseMvc ();
         }
     }
